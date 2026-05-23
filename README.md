@@ -19,3 +19,9 @@
 
 npm install
 npm start
+
+
+Workflow:
+LinkedIn Login → Job Search → Recruiter Email Extraction → Gmail Compose → Resume Attachment → Send Application
+Why demo mode?
+LinkedIn frequently triggers CAPTCHA and anti-bot restrictions during automated testing, so demo mode was implemented to ensure consistent workflow validation.
