@@ -10,35 +10,17 @@ async function loginLinkedIn() {
 
   const page = await browser.newPage();
 
-  await page.goto("https://www.linkedin.com/login", {
-    waitUntil: "networkidle2"
+  await page.goto("https://www.linkedin.com/feed/", {
+    waitUntil: "domcontentloaded",
+    timeout: 60000
   });
 
-  const currentUrl = page.url();
+  console.log("If LinkedIn login page opens, login manually in the browser.");
+  console.log("Waiting 60 seconds for manual login...");
 
-  if (currentUrl.includes("/feed")) {
-    console.log("Already logged in to LinkedIn.");
-    return { browser, page };
-  }
+  await new Promise(resolve => setTimeout(resolve, 60000));
 
-  try {
-    await page.waitForSelector("#username", { timeout: 10000 });
-
-    await page.type("#username", process.env.LINKEDIN_EMAIL, { delay: 60 });
-    await page.type("#password", process.env.LINKEDIN_PASSWORD, { delay: 60 });
-
-    await page.click("button[type='submit']");
-
-    await page.waitForNavigation({
-      waitUntil: "networkidle2",
-      timeout: 60000
-    });
-
-    console.log("LinkedIn login completed.");
-  } catch (error) {
-    console.log("Manual login may be required.");
-    console.log("If LinkedIn asks for captcha/OTP, complete it manually in browser.");
-  }
+  console.log("Continuing automation...");
 
   return { browser, page };
 }

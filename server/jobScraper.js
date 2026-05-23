@@ -60,11 +60,15 @@ async function scrapeLinkedInPosts(page, keywords) {
 }
 
 function scrapeSamplePosts() {
-  if (!fs.existsSync("./samplePosts.txt")) {
-    return [];
-  }
+  const path = require("path");
 
-  const data = fs.readFileSync("./samplePosts.txt", "utf-8");
+const samplePath = path.join(__dirname, "samplePosts.txt");
+
+if (!fs.existsSync(samplePath)) {
+  return [];
+}
+
+const data = fs.readFileSync(samplePath, "utf-8");
 
   const posts = data.split("-----");
 
